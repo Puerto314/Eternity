@@ -75,12 +75,12 @@ public class VentanaRegistro extends JFrame {
 		textoUsuario.setBounds(40, 150, 130, 20);
 		fondo.add(textoUsuario);
 
-		JTextField campoUsuario = new JTextField();
-		campoUsuario.setFont(new Font("Gotham Rounded", Font.BOLD, 18));
-		campoUsuario.setBounds(200, 150, 100, 20);
-		campoUsuario.setOpaque(false);
-		campoUsuario.setBorder(null);
-		fondo.add(campoUsuario);
+		campoAlias = new JTextField();
+		campoAlias.setFont(new Font("Gotham Rounded", Font.BOLD, 18));
+		campoAlias.setBounds(200, 150, 100, 20);
+		campoAlias.setOpaque(false);
+		campoAlias.setBorder(null);
+		fondo.add(campoAlias);
 
 		JLabel textoContrasena = new JLabel("Contraseña");
 		textoContrasena.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
@@ -285,12 +285,20 @@ public class VentanaRegistro extends JFrame {
 		this.textoIngresos = textoIngresos;
 	}
 
-	public JLabel getTextoDivorciados() {
+	public JLabel getTextoDivorciada() {
 		return textoDivorciada;
 	}
 
-	public void setTextoDivorciados(JLabel textoDivorciada) {
+	public void setTextoDivorciada(JLabel textoDivorciada) {
 		this.textoDivorciada = textoDivorciada;
+	}
+
+	public JLabel getTextoSexo() {
+		return textoSexo;
+	}
+
+	public void setTextoSexo(JLabel textoSexo) {
+		this.textoSexo = textoSexo;
 	}
 
 	public JTextField getCampoNombre() {
@@ -347,6 +355,14 @@ public class VentanaRegistro extends JFrame {
 
 	public void setCampoDivorciada(JTextField campoDivorciada) {
 		this.campoDivorciada = campoDivorciada;
+	}
+
+	public JTextField getCampoDefault() {
+		return campoDefault;
+	}
+
+	public void setCampoDefault(JTextField campoDefault) {
+		this.campoDefault = campoDefault;
 	}
 
 	public ImageIcon getFondoVentana() {

@@ -4,7 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Properties;
 import javax.swing.JOptionPane;
+
+import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
+import co.edu.unbosque.model.Usuario;
+import co.edu.unbosque.util.exception.AliasException;
+import co.edu.unbosque.util.exception.LanzadorException;
 import co.edu.unbosque.view.ViewFacade;
 
 public class Controlador implements ActionListener {
@@ -96,6 +101,21 @@ public class Controlador implements ActionListener {
 			break;
 		}
 		case "boton_registro_crear": {
+			String usuario, contrasenya, nombre, correo;
+			boolean sexo;
+			int edad, estatura;
+
+			try {
+				usuario = vf.getVentanaRegistro().getCampoAlias().getText();
+				LanzadorException.verificarAliasValido(usuario);
+			} catch (AliasException ex) {
+				JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR NOMBRE DE USUARIO",
+						JOptionPane.ERROR_MESSAGE);
+				break;
+			}
+
+			mf.getHomDAO().crear(new HombreDTO());
+
 			JOptionPane.showMessageDialog(null, "Cuenta creada con éxito");
 			vf.getVentanaRegistro().dispose();
 			vf.getVentanaInicio().setVisible(true);
