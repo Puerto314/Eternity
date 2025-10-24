@@ -150,8 +150,26 @@ public class Controlador implements ActionListener {
 			break;
 		}
 		case "boton_iniciar_sesion": {
-			vf.getVentanaInicio().dispose();
-			vf.getVentanaPrincipal().setVisible(true);
+			try {
+				String usuarioIngresado = vf.getVentanaInicio().getCampoUsuario().getText();
+				String contrasenyaIngresada = vf.getVentanaInicio().getCampoContrasenya().getText();
+				boolean encontrado = false;
+
+				// FALTA LÓGICA
+
+				if (encontrado) {
+					vf.getVentanaInicio().dispose();
+					vf.getVentanaPrincipal().setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error de inicio de sesión",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Ocurrió un error al iniciar sesión", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
 			break;
 		}
 		case "boton_cerrar_sesion": {
