@@ -9,7 +9,11 @@ import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.Usuario;
 import co.edu.unbosque.util.exception.AliasException;
+import co.edu.unbosque.util.exception.ContrasenyaException;
+import co.edu.unbosque.util.exception.CorreoException;
+import co.edu.unbosque.util.exception.EstaturaException;
 import co.edu.unbosque.util.exception.LanzadorException;
+import co.edu.unbosque.util.exception.NombreException;
 import co.edu.unbosque.view.ViewFacade;
 
 public class Controlador implements ActionListener {
@@ -101,20 +105,44 @@ public class Controlador implements ActionListener {
 			break;
 		}
 		case "boton_registro_crear": {
-			String usuario, contrasenya, nombre, correo;
-			boolean sexo;
-			int edad, estatura;
+			String usuario, contrasenya, nombre, correo, estatura, edad;
 
 			try {
 				usuario = vf.getVentanaRegistro().getCampoAlias().getText();
 				LanzadorException.verificarAliasValido(usuario);
 			} catch (AliasException ex) {
-				JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR NOMBRE DE USUARIO",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR ALIAS", JOptionPane.ERROR_MESSAGE);
+				break;
+			}
+			try {
+				contrasenya = vf.getVentanaRegistro().getCampoContrasenya().getText();
+				LanzadorException.verificarContrasenyaValida(contrasenya);
+			} catch (ContrasenyaException ex) {
+				JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR CONTRASEÑA", JOptionPane.ERROR_MESSAGE);
+				break;
+			}
+			try {
+				nombre = vf.getVentanaRegistro().getCampoNombre().getText();
+				LanzadorException.verificarNombreValido(nombre);
+			} catch (NombreException ex) {
+				JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR NOMBRE", JOptionPane.ERROR_MESSAGE);
+				break;
+			}
+			try {
+				correo = vf.getVentanaRegistro().getCampoCorreo().getText();
+				LanzadorException.verificarCorreoValido(correo);
+			} catch (CorreoException ex) {
+				JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR CORREO", JOptionPane.ERROR_MESSAGE);
 				break;
 			}
 
-			mf.getHomDAO().crear(new HombreDTO());
+			try {
+				estatura = vf.getVentanaRegistro().getCampoEstatura().getText();
+				LanzadorException.verificarEstaturaValida(estatura);
+			} catch (EstaturaException ex) {
+				JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR ESTATURA", JOptionPane.ERROR_MESSAGE);
+				break;
+			}
 
 			JOptionPane.showMessageDialog(null, "Cuenta creada con éxito");
 			vf.getVentanaRegistro().dispose();

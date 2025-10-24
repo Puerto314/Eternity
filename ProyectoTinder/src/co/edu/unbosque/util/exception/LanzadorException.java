@@ -101,23 +101,26 @@ public class LanzadorException {
 	}
 
 	public static void verificarCorreoValido(String entrada) throws CorreoException {
-		if (entrada == null || entrada.trim().isEmpty()) {
-			throw new CorreoException();
-		}
-
-		entrada = entrada.trim();
-
-		String patronDelCorreo = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.(?:[A-Za-z]{2,})$";
-
-		if (!entrada.matches(patronDelCorreo)) {
-			throw new CorreoException();
-		}
-
-		if (!(entrada.endsWith("@unbosque.edu.co") || entrada.endsWith("@gmail.com")
-				|| entrada.endsWith("@hotmail.com"))) {
+		if (entrada == null || !entrada.matches("^[A-Za-z0-9]+@(unbosque\\.edu\\.co|gmail\\.com|hotmail\\.com)$")) {
 			throw new CorreoException();
 		}
 	}
+
+	/*
+	 * public static void verificarCorreoValido(String entrada) throws
+	 * CorreoException { if (entrada == null || entrada.trim().isEmpty()) { throw
+	 * new CorreoException(); }
+	 * 
+	 * entrada = entrada.trim();
+	 * 
+	 * String patronDelCorreo =
+	 * "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.(?:[A-Za-z]{2,})$";
+	 * 
+	 * if (!entrada.matches(patronDelCorreo)) { throw new CorreoException(); }
+	 * 
+	 * if (!(entrada.endsWith("@unbosque.edu.co") || entrada.endsWith("@gmail.com")
+	 * || entrada.endsWith("@hotmail.com"))) { throw new CorreoException(); } }
+	 */
 
 	public static void verificarEstaturaValida(String entrada) throws EstaturaException {
 		if (entrada == null || entrada.isEmpty()) {

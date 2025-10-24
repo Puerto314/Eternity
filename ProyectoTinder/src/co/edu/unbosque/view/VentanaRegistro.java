@@ -33,6 +33,7 @@ public class VentanaRegistro extends JFrame {
 	private JLabel textoIngresos; // opcionales
 	private JLabel textoDivorciada; // opcionales
 	private JLabel textoSexo;
+	private JLabel textoContrasenya;
 
 	private JTextField campoNombre;
 	private JTextField campoAlias;
@@ -42,6 +43,7 @@ public class VentanaRegistro extends JFrame {
 	private JTextField campoIngreso; // opcionales
 	private JTextField campoDivorciada; // opcionales
 	private JTextField campoDefault;
+	private JTextField campoContrasenya;
 
 	private ImageIcon fondoVentana;
 	private Image ajustar;
@@ -63,17 +65,17 @@ public class VentanaRegistro extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
-		fondoVentana = new ImageIcon(getClass().getResource("/co/edu/unbosque/view/VentanaRegistro.png"));
+		fondoVentana = new ImageIcon(getClass().getResource("/VentanaRegistro.png"));
 		ajustar = fondoVentana.getImage();
 		fondo = new JLabel(new ImageIcon(ajustar));
 		fondo.setBounds(0, 0, 800, 400);
 		this.setContentPane(fondo);
 		fondo.setLayout(null);
 
-		JLabel textoUsuario = new JLabel("Usuario");
-		textoUsuario.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
-		textoUsuario.setBounds(40, 150, 130, 20);
-		fondo.add(textoUsuario);
+		textoAlias = new JLabel("Usuario");
+		textoAlias.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
+		textoAlias.setBounds(40, 150, 130, 20);
+		fondo.add(textoAlias);
 
 		campoAlias = new JTextField();
 		campoAlias.setFont(new Font("Gotham Rounded", Font.BOLD, 18));
@@ -82,17 +84,17 @@ public class VentanaRegistro extends JFrame {
 		campoAlias.setBorder(null);
 		fondo.add(campoAlias);
 
-		JLabel textoContrasena = new JLabel("Contraseña");
-		textoContrasena.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
-		textoContrasena.setBounds(40, 195, 130, 20);
-		fondo.add(textoContrasena);
+		textoContrasenya = new JLabel("Contraseña");
+		textoContrasenya.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
+		textoContrasenya.setBounds(40, 195, 130, 20);
+		fondo.add(textoContrasenya);
 
-		JPasswordField campoContrasena = new JPasswordField();
-		campoContrasena.setFont(new Font("Gotham Rounded", Font.PLAIN, 18));
-		campoContrasena.setBounds(200, 200, 100, 20);
-		campoContrasena.setOpaque(false);
-		campoContrasena.setBorder(null);
-		fondo.add(campoContrasena);
+		campoContrasenya = new JPasswordField();
+		campoContrasenya.setFont(new Font("Gotham Rounded", Font.PLAIN, 18));
+		campoContrasenya.setBounds(200, 200, 100, 20);
+		campoContrasenya.setOpaque(false);
+		campoContrasenya.setBorder(null);
+		fondo.add(campoContrasenya);
 
 		textoSexo = new JLabel("Sexo");
 		textoSexo.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
@@ -301,6 +303,14 @@ public class VentanaRegistro extends JFrame {
 		this.textoSexo = textoSexo;
 	}
 
+	public JLabel getTextoContrasenya() {
+		return textoContrasenya;
+	}
+
+	public void setTextoContrasenya(JLabel textoContrasenya) {
+		this.textoContrasenya = textoContrasenya;
+	}
+
 	public JTextField getCampoNombre() {
 		return campoNombre;
 	}
@@ -363,6 +373,14 @@ public class VentanaRegistro extends JFrame {
 
 	public void setCampoDefault(JTextField campoDefault) {
 		this.campoDefault = campoDefault;
+	}
+
+	public JTextField getCampoContrasenya() {
+		return campoContrasenya;
+	}
+
+	public void setCampoContrasenya(JTextField campoContrasenya) {
+		this.campoContrasenya = campoContrasenya;
 	}
 
 	public ImageIcon getFondoVentana() {

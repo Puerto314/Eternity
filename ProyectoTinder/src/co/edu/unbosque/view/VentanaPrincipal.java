@@ -31,7 +31,7 @@ public class VentanaPrincipal extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
-		imagenFondo = new ImageIcon(getClass().getResource("/co/edu/unbosque/view/VentanaPrincipal.png"));
+		imagenFondo = new ImageIcon(getClass().getResource("/VentanaPrincipal.png"));
 		ajustar = imagenFondo.getImage();
 		fondo = new JLabel(new ImageIcon(ajustar));
 		fondo.setBounds(0, 0, 800, 400);
