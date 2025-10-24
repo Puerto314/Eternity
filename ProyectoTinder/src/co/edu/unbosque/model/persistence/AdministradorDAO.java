@@ -1,13 +1,14 @@
 package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
-
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.AdministradorDTO;
 
 public class AdministradorDAO implements DAO<AdministradorDTO> {
 
+	private List<AdministradorDTO> listaAdministradorDTO = new ArrayList<>();
 	private ArrayList<Administrador> listaAdministrador;
 	private final String FILE_NAME = "Administrador.csv";
 	private final String SERIAL_FILE_NAME = "Adminisstrador.bin";
@@ -122,7 +123,17 @@ public class AdministradorDAO implements DAO<AdministradorDTO> {
 		this.listaAdministrador = listaAdministrador;
 	}
 
-	
+	@Override
+	public List<AdministradorDTO> leerTodos() {
+		return new ArrayList<>(listaAdministradorDTO);
+	}
 
+	public List<AdministradorDTO> getListaAdministradorDTO() {
+		return listaAdministradorDTO;
+	}
+
+	public void setListaAdministradorDTO(List<AdministradorDTO> listaAdministradorDTO) {
+		this.listaAdministradorDTO = listaAdministradorDTO;
+	}
 
 }

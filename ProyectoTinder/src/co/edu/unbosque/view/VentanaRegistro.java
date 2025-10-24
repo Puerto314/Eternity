@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -47,6 +48,9 @@ public class VentanaRegistro extends JFrame {
 
 	private ImageIcon fondoVentana;
 	private Image ajustar;
+
+	private JButton botonSeleccionarImagen;
+	private JLabel labelImagenSeleccionada;
 
 	private JComboBox<String> listaSexos;
 
@@ -213,6 +217,19 @@ public class VentanaRegistro extends JFrame {
 		btnCrear.setOpaque(false);
 		btnCrear.setBorderPainted(false);
 		fondo.add(btnCrear);
+
+		botonSeleccionarImagen = new JButton();
+		botonSeleccionarImagen.setBounds(737, 203, 25, 25);
+		botonSeleccionarImagen.setBackground(Color.WHITE);
+		botonSeleccionarImagen.setForeground(Color.BLACK);
+		botonSeleccionarImagen.setFocusPainted(false);
+		botonSeleccionarImagen.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // borde negro
+		fondo.add(botonSeleccionarImagen);
+
+		labelImagenSeleccionada = new JLabel("Seleccione una imagen ->");
+		labelImagenSeleccionada.setBounds(560, 200, 170, 30);
+		labelImagenSeleccionada.setFont(new Font("Arial", Font.PLAIN, 14));
+		fondo.add(labelImagenSeleccionada);
 	}
 
 	public JLabel getFondo() {
@@ -405,6 +422,22 @@ public class VentanaRegistro extends JFrame {
 
 	public void setListaSexos(JComboBox<String> listaSexos) {
 		this.listaSexos = listaSexos;
+	}
+
+	public JButton getBotonSeleccionarImagen() {
+		return botonSeleccionarImagen;
+	}
+
+	public void setBotonSeleccionarImagen(JButton botonSeleccionarImagen) {
+		this.botonSeleccionarImagen = botonSeleccionarImagen;
+	}
+
+	public JLabel getLabelImagenSeleccionada() {
+		return labelImagenSeleccionada;
+	}
+
+	public void setLabelImagenSeleccionada(JLabel labelImagenSeleccionada) {
+		this.labelImagenSeleccionada = labelImagenSeleccionada;
 	}
 
 	class RoundedBorder implements Border {

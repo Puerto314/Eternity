@@ -1,14 +1,14 @@
 package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
-
 import co.edu.unbosque.model.Mujer;
 import co.edu.unbosque.model.MujerDTO;
-import co.edu.unbosque.model.Mujer;
 
 public class MujerDAO implements DAO<MujerDTO> {
 
+	private List<MujerDTO> listaMujerDTO = new ArrayList<>();
 	private ArrayList<Mujer> listaMujer;
 	private final String FILE_NAME = "Mujer.csv";
 	private final String SERIAL_FILE_NAME = "Mujer.bin";
@@ -116,44 +116,44 @@ public class MujerDAO implements DAO<MujerDTO> {
 	}
 
 	public String mostrarMujeresMasLikes() {
-	    if (listaMujer.isEmpty()) {
-	        return "No hay hombres registrados.\n";
-	    }
+		if (listaMujer.isEmpty()) {
+			return "No hay hombres registrados.\n";
+		}
 
-	    quickSort(listaMujer, 0, listaMujer.size() - 1);
+		quickSort(listaMujer, 0, listaMujer.size() - 1);
 
-	    String cont = "";
-	    int limite = Math.min(10, listaMujer.size());
-	    for (int i = 0; i < limite; i++) {
-	        cont += listaMujer.get(i).toString() + "\n";
-	    }
+		String cont = "";
+		int limite = Math.min(10, listaMujer.size());
+		for (int i = 0; i < limite; i++) {
+			cont += listaMujer.get(i).toString() + "\n";
+		}
 
-	    return cont;
+		return cont;
 	}
 
 	public void quickSort(ArrayList<Mujer> lista, int menor, int mayor) {
-	    if (menor < mayor) {
-	        int pivote = particionar(lista, menor, mayor);
-	        quickSort(lista, menor, pivote - 1);
-	        quickSort(lista, pivote + 1, mayor);
-	    }
+		if (menor < mayor) {
+			int pivote = particionar(lista, menor, mayor);
+			quickSort(lista, menor, pivote - 1);
+			quickSort(lista, pivote + 1, mayor);
+		}
 	}
 
 	public int particionar(ArrayList<Mujer> lista, int menor, int mayor) {
-	    Mujer pivote = lista.get(mayor);
-	    int i = (menor - 1);
-	    for (int j = menor; j < mayor; j++) {
-	        if (lista.get(j).getMeGusta() > pivote.getMeGusta()) {
-	            i++;
-	            Mujer temp = lista.get(i);
-	            lista.set(i, lista.get(j));
-	            lista.set(j, temp);
-	        }
-	    }
-	    Mujer temp = lista.get(i + 1);
-	    lista.set(i + 1, lista.get(mayor));
-	    lista.set(mayor, temp);
-	    return i + 1;
+		Mujer pivote = lista.get(mayor);
+		int i = (menor - 1);
+		for (int j = menor; j < mayor; j++) {
+			if (lista.get(j).getMeGusta() > pivote.getMeGusta()) {
+				i++;
+				Mujer temp = lista.get(i);
+				lista.set(i, lista.get(j));
+				lista.set(j, temp);
+			}
+		}
+		Mujer temp = lista.get(i + 1);
+		lista.set(i + 1, lista.get(mayor));
+		lista.set(mayor, temp);
+		return i + 1;
 	}
 
 	public ArrayList<Mujer> getListaMujer() {
@@ -163,7 +163,22 @@ public class MujerDAO implements DAO<MujerDTO> {
 	public void setListaMujer(ArrayList<Mujer> listaMujer) {
 		this.listaMujer = listaMujer;
 	}
-	
-	
+
+	@Override
+	public List<MujerDTO> leerTodos() {
+		List<MujerDTO> listaDTO = new ArrayList<>();
+		for (Mujer h : listaMujer) {
+			listaDTO.add(DataMapper.convertirMujerAMujerDTO(h));
+		}
+		return listaDTO;
+	}
+
+	public List<MujerDTO> getListaMujerDTO() {
+		return listaMujerDTO;
+	}
+
+	public void setListaMujerDTO(List<MujerDTO> listaMujerDTO) {
+		this.listaMujerDTO = listaMujerDTO;
+	}
 
 }

@@ -2,12 +2,16 @@ package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Properties;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
 import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
-import co.edu.unbosque.model.Usuario;
+import co.edu.unbosque.model.MujerDTO;
 import co.edu.unbosque.util.exception.AliasException;
 import co.edu.unbosque.util.exception.ContrasenyaException;
 import co.edu.unbosque.util.exception.CorreoException;
@@ -21,6 +25,7 @@ public class Controlador implements ActionListener {
 	private ModelFacade mf;
 	private ViewFacade vf;
 	private Properties prop;
+	private String rutaImagenProducto = "";
 
 	public Controlador() {
 		mf = new ModelFacade();
@@ -53,6 +58,9 @@ public class Controlador implements ActionListener {
 
 		vf.getVentanaPrincipal().getBotonCerrarSesion().addActionListener(this);
 		vf.getVentanaPrincipal().getBotonCerrarSesion().setActionCommand("boton_cerrar_sesion");
+
+		vf.getVentanaRegistro().getBotonSeleccionarImagen().addActionListener(this);
+		vf.getVentanaRegistro().getBotonSeleccionarImagen().setActionCommand("boton_seleccionar_imagen");
 
 	}
 
@@ -114,6 +122,7 @@ public class Controlador implements ActionListener {
 				JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR ALIAS", JOptionPane.ERROR_MESSAGE);
 				break;
 			}
+
 			try {
 				contrasenya = vf.getVentanaRegistro().getCampoContrasenya().getText();
 				LanzadorException.verificarContrasenyaValida(contrasenya);
@@ -121,6 +130,7 @@ public class Controlador implements ActionListener {
 				JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR CONTRASEÑA", JOptionPane.ERROR_MESSAGE);
 				break;
 			}
+
 			try {
 				nombre = vf.getVentanaRegistro().getCampoNombre().getText();
 				LanzadorException.verificarNombreValido(nombre);
@@ -128,6 +138,7 @@ public class Controlador implements ActionListener {
 				JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR NOMBRE", JOptionPane.ERROR_MESSAGE);
 				break;
 			}
+
 			try {
 				correo = vf.getVentanaRegistro().getCampoCorreo().getText();
 				LanzadorException.verificarCorreoValido(correo);
@@ -144,23 +155,72 @@ public class Controlador implements ActionListener {
 				break;
 			}
 
-			JOptionPane.showMessageDialog(null, "Cuenta creada con éxito");
+			edad = vf.getVentanaRegistro().getCampoEdad().getText();
+
+			String sexoSeleccionado = (String) vf.getVentanaRegistro().getListaSexos().getSelectedItem();
+			boolean esHombre = sexoSeleccionado.equals("Hombre");
+
+			if (esHombre) {
+				HombreDTO nuevoHombre = new HombreDTO();
+				nuevoHombre.setAlias(usuario);
+				nuevoHombre.setContrasenya(contrasenya);
+				nuevoHombre.setNombre(nombre);
+				nuevoHombre.setCorreo(correo);
+				nuevoHombre.setEdad(edad);
+				nuevoHombre.setEstatura(Float.parseFloat(estatura));
+				nuevoHombre.setEsHombre(true);
+
+				mf.getHomDAO().crear(nuevoHombre);
+				JOptionPane.showMessageDialog(null, "Cuenta creada con éxito como hombre");
+
+			} else {
+				MujerDTO nuevaMujer = new MujerDTO();
+				nuevaMujer.setAlias(usuario);
+				nuevaMujer.setContrasenya(contrasenya);
+				nuevaMujer.setNombre(nombre);
+				nuevaMujer.setCorreo(correo);
+				nuevaMujer.setEdad(edad);
+				nuevaMujer.setEstatura(Float.parseFloat(estatura));
+				nuevaMujer.setEsHombre(false);
+
+				mf.getMujDAO().crear(nuevaMujer);
+				JOptionPane.showMessageDialog(null, "Cuenta creada con éxito como mujer");
+			}
+
 			vf.getVentanaRegistro().dispose();
 			vf.getVentanaInicio().setVisible(true);
 			break;
 		}
+
 		case "boton_iniciar_sesion": {
 			try {
 				String usuarioIngresado = vf.getVentanaInicio().getCampoUsuario().getText();
 				String contrasenyaIngresada = vf.getVentanaInicio().getCampoContrasenya().getText();
 				boolean encontrado = false;
 
-				// FALTA LÓGICA
+				for (HombreDTO u : mf.getHomDAO().leerTodos()) {
+					if (u.getAlias().equals(usuarioIngresado) && u.getContrasenya().equals(contrasenyaIngresada)) {
+						encontrado = true;
+						JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso como HOMBRE");
+						vf.getVentanaInicio().dispose();
+						vf.getVentanaPrincipal().setVisible(true);
+						break;
+					}
+				}
 
-				if (encontrado) {
-					vf.getVentanaInicio().dispose();
-					vf.getVentanaPrincipal().setVisible(true);
-				} else {
+				if (!encontrado) {
+					for (MujerDTO u : mf.getMujDAO().leerTodos()) {
+						if (u.getAlias().equals(usuarioIngresado) && u.getContrasenya().equals(contrasenyaIngresada)) {
+							encontrado = true;
+							JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso como MUJER");
+							vf.getVentanaInicio().dispose();
+							vf.getVentanaPrincipal().setVisible(true);
+							break;
+						}
+					}
+				}
+
+				if (!encontrado) {
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error de inicio de sesión",
 							JOptionPane.ERROR_MESSAGE);
 				}
@@ -172,9 +232,38 @@ public class Controlador implements ActionListener {
 
 			break;
 		}
+
 		case "boton_cerrar_sesion": {
 			vf.getVentanaPrincipal().dispose();
 			vf.getVentanaInicio().setVisible(true);
+			break;
+		}
+
+		case "boton_seleccionar_imagen": {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir"))); // Directorio actual del proyecto
+			int result = fileChooser.showOpenDialog(vf.getVentanaRegistro());
+			if (result == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				String fileName = selectedFile.getName();
+
+				// Ruta relativa para guardar la imagen en la carpeta 'view'
+				File destinationFolder = new File("MercadoLibre/MercadoLibre/MercadoLibre/src/co/edu/unbosque/view/");
+				if (!destinationFolder.exists()) {
+					destinationFolder.mkdirs(); // Crear la carpeta si no existe
+				}
+				File destinationFile = new File(destinationFolder, fileName);
+
+				try {
+					Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR DIRECCION", JOptionPane.ERROR_MESSAGE);
+				}
+				rutaImagenProducto = "co/edu/unbosque/view/" + fileName; // Guardar la ruta relativa para el modelo
+				vf.getVentanaRegistro().getLabelImagenSeleccionada().setText("Imagen seleccionada: " + fileName);
+				JOptionPane.showMessageDialog(vf.getVentanaRegistro(), "Imagen cargada con éxito: " + fileName);
+
+			}
 			break;
 		}
 

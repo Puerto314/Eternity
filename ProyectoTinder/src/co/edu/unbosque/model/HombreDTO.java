@@ -1,58 +1,63 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
 import java.util.Properties;
 
-public class HombreDTO extends Usuario{
+public class HombreDTO extends Usuario implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7096544807358879912L;
 	/**
 	 * 
 	 */
 	private Properties prop;
 	private long salario;
-	
+
 	public HombreDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public HombreDTO( long salario) {
+	public HombreDTO(long salario) {
 		super();
-		
+
 		this.salario = salario;
 	}
 
-	public HombreDTO( String edad, float estatura, String fotoPerfil, int meGusta, boolean disponibilidad,
-			String lugar, boolean sexo,  long salario) {
-		super( edad, estatura, fotoPerfil, meGusta, disponibilidad, lugar, sexo);
-		
+	public HombreDTO(String edad, float estatura, String fotoPerfil, int meGusta, boolean disponibilidad, String lugar,
+			boolean sexo, long salario) {
+		super(edad, estatura, fotoPerfil, meGusta, disponibilidad, lugar, sexo);
+
 		this.salario = salario;
 	}
 
 	public HombreDTO(String nombre, String alias, long cedula, String correo, String contrasenya,
-			String codigoVerificacion,  String edad, float estatura, String fotoPerfil, int meGusta,
-			boolean disponibilidad, String lugar, boolean sexo,  long salario) {
-		super(nombre, alias, cedula, correo, contrasenya, codigoVerificacion,  edad, estatura, fotoPerfil, meGusta,
+			String codigoVerificacion, String edad, float estatura, String fotoPerfil, int meGusta,
+			boolean disponibilidad, String lugar, boolean sexo, long salario) {
+		super(nombre, alias, cedula, correo, contrasenya, codigoVerificacion, edad, estatura, fotoPerfil, meGusta,
 				disponibilidad, lugar, sexo);
-		
+
 		this.salario = salario;
 	}
 
 	public HombreDTO(String nombre, String alias, long cedula, String correo, String contrasenya,
-			String codigoVerificacion,  long salario) {
+			String codigoVerificacion, long salario) {
 		super(nombre, alias, cedula, correo, contrasenya, codigoVerificacion);
-		
+
 		this.salario = salario;
 	}
 
-	public HombreDTO( String edad, float estatura, String fotoPerfil, int meGusta, boolean disponibilidad,
-			String lugar, boolean sexo) {
-		super( edad, estatura, fotoPerfil, meGusta, disponibilidad, lugar, sexo);
+	public HombreDTO(String edad, float estatura, String fotoPerfil, int meGusta, boolean disponibilidad, String lugar,
+			boolean sexo) {
+		super(edad, estatura, fotoPerfil, meGusta, disponibilidad, lugar, sexo);
 		// TODO Auto-generated constructor stub
 	}
 
 	public HombreDTO(String nombre, String alias, long cedula, String correo, String contrasenya,
-			String codigoVerificacion,  String edad, float estatura, String fotoPerfil, int meGusta,
+			String codigoVerificacion, String edad, float estatura, String fotoPerfil, int meGusta,
 			boolean disponibilidad, String lugar, boolean sexo) {
-		super(nombre, alias, cedula, correo, contrasenya, codigoVerificacion,  edad, estatura, fotoPerfil, meGusta,
+		super(nombre, alias, cedula, correo, contrasenya, codigoVerificacion, edad, estatura, fotoPerfil, meGusta,
 				disponibilidad, lugar, sexo);
 		// TODO Auto-generated constructor stub
 	}
@@ -83,7 +88,5 @@ public class HombreDTO extends Usuario{
 	public String toString() {
 		return "Hombre " + ", salario=" + salario + "]";
 	}
-	
-	
-	
+
 }
