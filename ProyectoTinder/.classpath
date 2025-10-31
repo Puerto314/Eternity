@@ -10,5 +10,7 @@
 	<classpathentry kind="src" path="Tinder"/>
 	<classpathentry kind="src" path="ImagesGUI"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/colin/Downloads/jakarta.activation-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/colin/Downloads/jakarta.mail-2.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

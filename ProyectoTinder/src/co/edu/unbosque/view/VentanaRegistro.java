@@ -1,20 +1,22 @@
 package co.edu.unbosque.view;
 
+import javax.swing.JButton;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.BasicStroke;
+
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -29,16 +31,16 @@ public class VentanaRegistro extends JFrame {
 	private JLabel textoNombre;
 	private JLabel textoAlias;
 	private JLabel textoEdad;
+	private JLabel textoEdadDos;
 	private JLabel textoCorreo;
 	private JLabel textoEstatura;
+	private JLabel textoEstaturaDos;
 	private JLabel textoIngresos; // opcionales
 	private JLabel textoDivorciada; // opcionales
 	private JLabel textoSexo;
 	private JLabel textoContrasenya;
-
 	private JTextField campoNombre;
 	private JTextField campoAlias;
-	private JTextField campoEdad;
 	private JTextField campoCorreo;
 	private JTextField campoEstatura;
 	private JTextField campoIngreso; // opcionales
@@ -50,6 +52,7 @@ public class VentanaRegistro extends JFrame {
 	private Image ajustar;
 
 	private JButton botonSeleccionarImagen;
+	private JButton botonEdad;
 	private JLabel labelImagenSeleccionada;
 
 	private JComboBox<String> listaSexos;
@@ -78,7 +81,7 @@ public class VentanaRegistro extends JFrame {
 
 		textoAlias = new JLabel("Usuario");
 		textoAlias.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
-		textoAlias.setBounds(40, 150, 130, 20);
+		textoAlias.setBounds(60, 145, 130, 20);
 		fondo.add(textoAlias);
 
 		campoAlias = new JTextField();
@@ -136,22 +139,55 @@ public class VentanaRegistro extends JFrame {
 		campoNombre.setBorder(null);
 		fondo.add(campoNombre);
 
-		textoEdad = new JLabel("Edad");
+		textoEdad = new JLabel("¿Cuando");
 		textoEdad.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
-		textoEdad.setBounds(320, 121, 100, 20);
+		textoEdad.setBounds(315, 118, 100, 25);
 		fondo.add(textoEdad);
 
-		campoEdad = new JTextField();
-		campoEdad.setFont(new Font("Gotham Rounded", Font.BOLD, 18));
-		campoEdad.setBounds(445, 133, 80, 20);
-		campoEdad.setOpaque(false);
-		campoEdad.setBorder(null);
-		fondo.add(campoEdad);
+		textoEdadDos = new JLabel("nació?");
+		textoEdadDos.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
+		textoEdadDos.setBounds(331, 143, 120, 20);
+		fondo.add(textoEdadDos);
+
+		botonEdad = new JButton("   Clic aquí") {
+			@Override
+			protected void paintComponent(Graphics g) {
+				Graphics2D g2 = (Graphics2D) g.create();
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+				super.paintComponent(g2);
+				g2.dispose();
+			}
+
+			@Override
+			protected void paintBorder(Graphics g) {
+				Graphics2D g2 = (Graphics2D) g.create();
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				g2.setColor(Color.BLACK);
+				g2.setStroke(new BasicStroke(2));
+				g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
+				g2.dispose();
+			}
+		};
+
+		botonEdad.setFont(new Font("Gotham Rounded", Font.BOLD, 16));
+		botonEdad.setBounds(412, 126, 120, 32);
+		botonEdad.setContentAreaFilled(false);
+		botonEdad.setFocusPainted(false);
+		botonEdad.setOpaque(false);
+		botonEdad.setBorderPainted(false);
+		botonEdad.setForeground(Color.BLACK);
+		fondo.add(botonEdad);
 
 		textoEstatura = new JLabel("Estatura");
-		textoEstatura.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
-		textoEstatura.setBounds(322, 170, 98, 20);
+		textoEstatura.setFont(new Font("Gotham Rounded", Font.BOLD, 19));
+		textoEstatura.setBounds(325, 168, 98, 20);
 		fondo.add(textoEstatura);
+
+		textoEstaturaDos = new JLabel("(cm)");
+		textoEstaturaDos.setFont(new Font("Gotham Rounded", Font.BOLD, 19));
+		textoEstaturaDos.setBounds(343, 185, 98, 20);
+		fondo.add(textoEstaturaDos);
 
 		campoEstatura = new JTextField();
 		campoEstatura.setFont(new Font("Gotham Rounded", Font.BOLD, 18));
@@ -199,7 +235,7 @@ public class VentanaRegistro extends JFrame {
 
 		textoCorreo = new JLabel("Correo");
 		textoCorreo.setFont(new Font("Gotham Rounded", Font.BOLD, 20));
-		textoCorreo.setBounds(320, 203, 100, 20);
+		textoCorreo.setBounds(330, 210, 100, 20);
 		fondo.add(textoCorreo);
 
 		campoCorreo = new JTextField();
@@ -223,7 +259,7 @@ public class VentanaRegistro extends JFrame {
 		botonSeleccionarImagen.setBackground(Color.WHITE);
 		botonSeleccionarImagen.setForeground(Color.BLACK);
 		botonSeleccionarImagen.setFocusPainted(false);
-		botonSeleccionarImagen.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // borde negro
+		botonSeleccionarImagen.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		fondo.add(botonSeleccionarImagen);
 
 		labelImagenSeleccionada = new JLabel("Seleccione una imagen ->");
@@ -278,6 +314,14 @@ public class VentanaRegistro extends JFrame {
 
 	public void setTextoEdad(JLabel textoEdad) {
 		this.textoEdad = textoEdad;
+	}
+
+	public JLabel getTextoEdadDos() {
+		return textoEdadDos;
+	}
+
+	public void setTextoEdadDos(JLabel textoEdadDos) {
+		this.textoEdadDos = textoEdadDos;
 	}
 
 	public JLabel getTextoCorreo() {
@@ -344,14 +388,6 @@ public class VentanaRegistro extends JFrame {
 		this.campoAlias = campoAlias;
 	}
 
-	public JTextField getCampoEdad() {
-		return campoEdad;
-	}
-
-	public void setCampoEdad(JTextField campoEdad) {
-		this.campoEdad = campoEdad;
-	}
-
 	public JTextField getCampoCorreo() {
 		return campoCorreo;
 	}
@@ -416,14 +452,6 @@ public class VentanaRegistro extends JFrame {
 		this.ajustar = ajustar;
 	}
 
-	public JComboBox<String> getListaSexos() {
-		return listaSexos;
-	}
-
-	public void setListaSexos(JComboBox<String> listaSexos) {
-		this.listaSexos = listaSexos;
-	}
-
 	public JButton getBotonSeleccionarImagen() {
 		return botonSeleccionarImagen;
 	}
@@ -432,12 +460,28 @@ public class VentanaRegistro extends JFrame {
 		this.botonSeleccionarImagen = botonSeleccionarImagen;
 	}
 
+	public JButton getBotonEdad() {
+		return botonEdad;
+	}
+
+	public void setBotonEdad(JButton botonEdad) {
+		this.botonEdad = botonEdad;
+	}
+
 	public JLabel getLabelImagenSeleccionada() {
 		return labelImagenSeleccionada;
 	}
 
 	public void setLabelImagenSeleccionada(JLabel labelImagenSeleccionada) {
 		this.labelImagenSeleccionada = labelImagenSeleccionada;
+	}
+
+	public JComboBox<String> getListaSexos() {
+		return listaSexos;
+	}
+
+	public void setListaSexos(JComboBox<String> listaSexos) {
+		this.listaSexos = listaSexos;
 	}
 
 	class RoundedBorder implements Border {

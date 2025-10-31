@@ -7,11 +7,13 @@ public class ViewFacade {
 	private VentanaInicio ventanaInicio;
 	private VentanaPrincipal ventanaPrincipal;
 	private VentanaRegistro ventanaRegistro;
+	private VentanaEdad ventanaEdad;
 
 	public ViewFacade() {
 		ventanaInicio = new VentanaInicio();
 		ventanaPrincipal = new VentanaPrincipal();
 		ventanaRegistro = new VentanaRegistro();
+		ventanaEdad = new VentanaEdad();
 
 	}
 
@@ -42,6 +44,14 @@ public class ViewFacade {
 	public void cargarPropiedades(Properties prop) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public VentanaEdad getVentanaEdad() {
+		return ventanaEdad;
+	}
+
+	public void setVentanaEdad(VentanaEdad ventanaEdad) {
+		this.ventanaEdad = ventanaEdad;
 	}
 
 }
